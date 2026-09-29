@@ -1,0 +1,325 @@
+/* ============================================
+   Quickserve POS — "Sky Glass" Theme
+   Adapted from the Cafe HRMS HR Staff Portal
+   theme onto Quickserve's actual markup
+   (app.php: .app-navbar, .app-sidebar, .card,
+   .panel, .kpi-card/.stat-card, tables, forms,
+   buttons, alerts, badges, two-col layout).
+
+   Drop this file in after the inline <style>
+   block in app.php's page_header(), e.g. just
+   before </head>:
+
+     <link rel="stylesheet" href="quickserve-glass-theme.css">
+
+   No body class needed — it targets Quickserve's
+   existing selectors directly and overrides the
+   inline flat-navy theme with light glassmorphism.
+   ============================================ */
+
+:root {
+  /* ---- Typography (kept from Quickserve's own pairing) ---- */
+  --qs-font-heading: 'Sora', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
+  --qs-font-body: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
+
+  /* ---- Color (Sky Glass blue/navy palette) ---- */
+  --qs-blue: #1d4ed8;
+  --qs-blue-light: #3b82f6;
+  --qs-navy: #16234a;
+  --qs-navy-deep: #0c1630;
+  --qs-ink: #0f172a;
+  --qs-ink-soft: #55617a;
+  --qs-ink-faint: #8996ad;
+
+  --qs-success: #16a34a;
+  --qs-success-soft: rgba(22, 163, 74, 0.12);
+  --qs-warning: #d97706;
+  --qs-warning-soft: rgba(217, 119, 6, 0.12);
+  --qs-danger: #dc2626;
+  --qs-danger-soft: rgba(220, 38, 38, 0.12);
+  --qs-purple: #7c3aed;
+  --qs-purple-soft: rgba(124, 58, 237, 0.12);
+  --qs-teal: #0d9488;
+  --qs-teal-soft: rgba(13, 148, 136, 0.12);
+
+  /* ---- Glass surfaces ---- */
+  --qs-glass: rgba(255, 255, 255, 0.62);
+  --qs-glass-strong: rgba(255, 255, 255, 0.88);
+  --qs-glass-border: rgba(255, 255, 255, 0.75);
+
+  --qs-radius-sm: 10px;
+  --qs-radius: 16px;
+  --qs-radius-lg: 20px;
+  --qs-shadow: 0 8px 28px rgba(15, 23, 42, 0.09);
+  --qs-shadow-lg: 0 16px 40px rgba(15, 23, 42, 0.14);
+  --qs-shadow-glow: 0 0 0 1px rgba(29, 78, 216, 0.10), 0 14px 34px rgba(29, 78, 216, 0.20);
+}
+
+/* ---------- Page background ---------- */
+body {
+  background:
+    radial-gradient(1100px 600px at 6% -10%, rgba(59, 130, 246, 0.14), transparent 55%),
+    radial-gradient(900px 520px at 100% 0%, rgba(29, 78, 216, 0.10), transparent 50%),
+    linear-gradient(180deg, #f4f7fd 0%, #eef2fb 45%, #f7f9fd 100%) !important;
+  background-attachment: fixed !important;
+}
+
+* { scrollbar-color: rgba(29, 78, 216, 0.35) transparent; }
+*::-webkit-scrollbar-thumb { background: rgba(29, 78, 216, 0.35); }
+
+h1, h2, h3, .navbar-brand, .button, button {
+  font-family: var(--qs-font-heading) !important;
+}
+.emp-page-header h1, .panel h2, .card strong, .kpi-card h3, .stat-card h3 { color: var(--qs-navy) !important; }
+.muted { color: var(--qs-ink-soft) !important; }
+a { color: var(--qs-blue); }
+a:hover { color: var(--qs-navy); }
+
+/* ---------- Top navbar — deep navy glass ---------- */
+.app-navbar {
+  background: linear-gradient(100deg, var(--qs-navy-deep) 0%, var(--qs-navy) 55%, var(--qs-blue) 130%) !important;
+  backdrop-filter: blur(18px) saturate(150%);
+  -webkit-backdrop-filter: blur(18px) saturate(150%);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: 0 4px 24px rgba(8, 26, 66, 0.28) !important;
+}
+.navbar-brand .brand-icon {
+  background: rgba(255, 255, 255, 0.16) !important;
+}
+#sidebarToggle {
+  background: rgba(255, 255, 255, 0.20) !important;
+  border: 1px solid rgba(255, 255, 255, 0.16) !important;
+  border-radius: var(--qs-radius-sm) !important;
+  transition: background 0.18s ease;
+}
+#sidebarToggle:hover { background: rgba(255, 255, 255, 0.32) !important; }
+.role-badge {
+  background: rgba(255, 255, 255, 0.20) !important;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  backdrop-filter: blur(6px);
+}
+
+/* User menu button — frosted pill like the reference screenshot */
+.user-dropdown-btn {
+  background: rgba(255, 255, 255, 0.20) !important;
+  border: 1px solid rgba(255, 255, 255, 0.16) !important;
+  border-radius: 999px !important;
+  padding: 6px 16px 6px 6px !important;
+  transition: background 0.18s ease;
+}
+.user-dropdown-btn:hover,
+.user-dropdown-btn:focus,
+.user-dropdown-btn[aria-expanded="true"] {
+  background: rgba(255, 255, 255, 0.32) !important;
+}
+.user-avatar {
+  background: linear-gradient(135deg, var(--qs-purple), #a855f7) !important;
+  box-shadow: 0 2px 8px rgba(124, 58, 237, 0.35);
+}
+.notification-bell {
+  width: 36px; height: 36px;
+  border-radius: 50%;
+  transition: background 0.18s ease;
+}
+.notification-bell:hover { background: rgba(255, 255, 255, 0.20) !important; }
+.app-navbar .dropdown-menu {
+  background: rgba(255, 255, 255, 0.92) !important;
+  backdrop-filter: blur(20px) saturate(160%);
+  -webkit-backdrop-filter: blur(20px) saturate(160%);
+  border: 1px solid var(--qs-glass-border) !important;
+  box-shadow: var(--qs-shadow-lg) !important;
+  animation: qsDropIn 0.18s ease both;
+}
+.app-navbar .dropdown-item:hover { background: rgba(29, 78, 216, 0.08) !important; color: var(--qs-navy) !important; }
+@keyframes qsDropIn {
+  from { opacity: 0; transform: translateY(-6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ---------- Sidebar — frosted glass ---------- */
+.app-sidebar {
+  background: rgba(255, 255, 255, 0.66) !important;
+  backdrop-filter: blur(20px) saturate(160%);
+  -webkit-backdrop-filter: blur(20px) saturate(160%);
+  border-right: 1px solid var(--qs-glass-border) !important;
+}
+.sidebar-group-label { color: var(--qs-ink-faint) !important; }
+.app-sidebar .nav-link {
+  color: var(--qs-ink-soft) !important;
+  transition: background 0.18s ease, color 0.18s ease, transform 0.18s ease;
+}
+.app-sidebar .nav-link i { color: var(--qs-ink-faint) !important; }
+.app-sidebar .nav-link:hover {
+  background: rgba(29, 78, 216, 0.09) !important;
+  color: var(--qs-navy) !important;
+  transform: translateX(3px);
+}
+.app-sidebar .nav-link.active {
+  background: linear-gradient(135deg, var(--qs-blue), var(--qs-navy)) !important;
+  color: #fff !important;
+  box-shadow: 0 6px 16px rgba(29, 78, 216, 0.35) !important;
+}
+.app-sidebar .nav-link.active i { color: #fff !important; }
+.sidebar-footer { color: var(--qs-ink-faint) !important; border-top-color: var(--qs-glass-border) !important; }
+
+/* ---------- Page fade-in ---------- */
+.app-content { animation: qsFadeUp 0.35s ease; }
+.emp-page-header { animation: qsFadeUp 0.4s ease both; }
+
+/* ---------- Cards / Panels (glass surfaces) ---------- */
+.card, .panel, .kpi-card, .stat-card {
+  background: var(--qs-glass) !important;
+  color: var(--qs-ink) !important;
+  border: 1px solid var(--qs-glass-border) !important;
+  border-radius: var(--qs-radius) !important;
+  box-shadow: var(--qs-shadow) !important;
+  backdrop-filter: blur(16px) saturate(160%);
+  -webkit-backdrop-filter: blur(16px) saturate(160%);
+  transition: transform 0.22s ease, box-shadow 0.22s ease, border-color 0.22s ease;
+  animation: qsFadeUp 0.4s ease both;
+}
+.card:hover, .kpi-card:hover, .stat-card:hover {
+  transform: translateY(-3px);
+  border-color: rgba(29, 78, 216, 0.30) !important;
+  box-shadow: var(--qs-shadow-glow) !important;
+}
+.panel h2 { border-bottom-color: var(--qs-glass-border) !important; }
+.chart-card-title { color: var(--qs-navy) !important; }
+
+/* Stagger KPI card entrance across the dashboard grid */
+.grid.cards > *:nth-child(1), .row.g-3 > *:nth-child(1) .kpi-card { animation-delay: 0.02s; }
+.grid.cards > *:nth-child(2), .row.g-3 > *:nth-child(2) .kpi-card { animation-delay: 0.08s; }
+.grid.cards > *:nth-child(3), .row.g-3 > *:nth-child(3) .kpi-card { animation-delay: 0.14s; }
+.grid.cards > *:nth-child(4), .row.g-3 > *:nth-child(4) .kpi-card { animation-delay: 0.20s; }
+
+@keyframes qsFadeUp {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ---------- KPI icon badges — retinted into the glass palette ---------- */
+.kpi-icon.blue   { background: rgba(29, 78, 216, 0.12) !important; color: var(--qs-blue) !important; }
+.kpi-icon.mint   { background: var(--qs-success-soft) !important; color: var(--qs-success) !important; }
+.kpi-icon.orange { background: var(--qs-warning-soft) !important; color: var(--qs-warning) !important; }
+.kpi-icon.red    { background: var(--qs-danger-soft) !important;  color: var(--qs-danger) !important; }
+.kpi-icon.purple { background: var(--qs-purple-soft) !important;  color: var(--qs-purple) !important; }
+.kpi-icon.teal   { background: var(--qs-teal-soft) !important;    color: var(--qs-teal) !important; }
+.kpi-card, .stat-card { position: relative; overflow: hidden; }
+.kpi-card::before, .stat-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(120deg, transparent 30%, rgba(59, 130, 246, 0.10) 50%, transparent 70%);
+  transform: translateX(-100%);
+  animation: qsShimmer 3.6s ease-in-out infinite;
+  pointer-events: none;
+}
+@keyframes qsShimmer {
+  0%   { transform: translateX(-120%); }
+  55%  { transform: translateX(120%); }
+  100% { transform: translateX(120%); }
+}
+
+/* ---------- Tables ---------- */
+table { border-radius: var(--qs-radius); overflow: hidden; }
+th {
+  background: rgba(29, 78, 216, 0.08) !important;
+  color: var(--qs-navy) !important;
+  border-bottom: none !important;
+}
+td { border-color: rgba(15, 23, 42, 0.06) !important; }
+tr:hover td { background-color: rgba(29, 78, 216, 0.06) !important; }
+
+/* ---------- Forms — glass inputs ---------- */
+label { color: var(--qs-navy) !important; }
+input, select {
+  background-color: rgba(255, 255, 255, 0.85) !important;
+  border: 1px solid rgba(15, 23, 42, 0.12) !important;
+  border-radius: var(--qs-radius-sm) !important;
+  transition: border-color 0.18s ease, box-shadow 0.18s ease, background 0.18s ease;
+}
+input:focus, select:focus {
+  background-color: #fff !important;
+  border-color: var(--qs-blue-light) !important;
+  box-shadow: 0 0 0 0.2rem rgba(59, 130, 246, 0.20) !important;
+}
+
+/* ---------- Buttons ---------- */
+.button, button {
+  border-radius: var(--qs-radius-sm) !important;
+  letter-spacing: 0.2px;
+  transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
+  background: linear-gradient(135deg, var(--qs-blue-light), var(--qs-blue)) !important;
+  box-shadow: 0 4px 14px rgba(29, 78, 216, 0.30);
+}
+.button:hover, button:hover {
+  background: linear-gradient(135deg, var(--qs-blue), var(--qs-navy)) !important;
+  transform: translateY(-1px);
+  box-shadow: 0 8px 20px rgba(29, 78, 216, 0.38);
+}
+button:active { transform: translateY(1px); }
+.button.secondary, button.secondary {
+  background: rgba(15, 23, 42, 0.06) !important;
+  color: var(--qs-ink-soft) !important;
+  border: 1px solid rgba(15, 23, 42, 0.10) !important;
+  box-shadow: none;
+}
+.button.secondary:hover, button.secondary:hover {
+  background: rgba(29, 78, 216, 0.08) !important;
+  color: var(--qs-navy) !important;
+}
+.button.danger, button.danger {
+  background: linear-gradient(135deg, #ef4444, var(--qs-danger)) !important;
+  box-shadow: 0 4px 14px rgba(220, 38, 38, 0.28);
+}
+.button.danger:hover, button.danger:hover { background: #b91c1c !important; }
+button:disabled { background: rgba(15, 23, 42, 0.10) !important; box-shadow: none !important; }
+
+/* ---------- Alerts ---------- */
+.alert {
+  border-radius: var(--qs-radius) !important;
+  box-shadow: var(--qs-shadow) !important;
+  animation: qsFadeUp 0.3s ease both;
+}
+.success { background: var(--qs-success-soft) !important; color: var(--qs-success) !important; border-left: 4px solid var(--qs-success) !important; border-color: transparent !important; }
+.error   { background: var(--qs-danger-soft) !important;  color: var(--qs-danger) !important;  border-left: 4px solid var(--qs-danger) !important;  border-color: transparent !important; }
+
+/* ---------- Status / role badges ---------- */
+.badge-status-active  { background: var(--qs-success) !important; }
+.badge-status-inactive { background: var(--qs-danger) !important; }
+.badge-role-admin   { background: linear-gradient(135deg, var(--qs-navy), var(--qs-navy-deep)) !important; }
+.badge-role-cashier {
+  background: rgba(29, 78, 216, 0.12) !important;
+  color: var(--qs-blue) !important;
+}
+
+/* Gentle pulse on low-stock badge in the sidebar */
+.nav-link .badge.bg-warning {
+  animation: qsPulseSoft 2.4s ease-in-out infinite;
+}
+@keyframes qsPulseSoft {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(217, 119, 6, 0.22); }
+  50%      { box-shadow: 0 0 0 5px rgba(217, 119, 6, 0); }
+}
+
+/* ---------- Footer ---------- */
+footer {
+  background: rgba(255, 255, 255, 0.7) !important;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-top-color: var(--qs-glass-border) !important;
+  color: var(--qs-ink-soft) !important;
+}
+
+@media (max-width: 900px) {
+  .app-sidebar.show { background: rgba(255, 255, 255, 0.95) !important; }
+}
+
+/* Respect users who've asked for reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
